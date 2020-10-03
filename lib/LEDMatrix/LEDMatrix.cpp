@@ -11,9 +11,7 @@
 
 #include <FastLED.h>
 #include <LEDMatrix.h>
-
-
-cLEDMatrixBase::cLEDMatrixBase()
+cLEDMatrixBase:: cLEDMatrixBase()
 {
 }
 
