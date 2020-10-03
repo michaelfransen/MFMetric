@@ -49,7 +49,7 @@ void displayTime() {
   }
 
   char text[8];
-  sprintf(text, "%d:%d", timeinfo.tm_hour, timeinfo.tm_min);
+  strftime(text, sizeof(text), "%I:%M", &timeinfo);
   message.SetText((unsigned char *)text, sizeof(text) - 1);
   message.UpdateText();
 }
@@ -70,13 +70,17 @@ void setup() {
 
   // initial FastLED by using CRGB led source from our matrix class
   FastLED.addLeds<CHIPSET, DATA_PIN, COLOR_ORDER>(leds[0], leds.Size()).setCorrection(TypicalSMD5050);
-  FastLED.setBrightness(40);
+  FastLED.setBrightness(100);
   FastLED.clear(true);
   message.Init(&leds, 24, 8, 12, 0);
   message.SetFont(MFFontData);
   unsigned char text[] = {"00:00"};
   message.SetText((unsigned char *)text, sizeof(text) - 1);
-  message.SetTextColrOptions(COLR_RGB | COLR_SINGLE, 0xff, 0x00, 0xff);
+    // EFFECT_HSV_CV "\x00\xff\xff\x40\xff\xff" EFFECT_CHAR_UP "           HSV_CV 00-40"
+    //                               EFFECT_HSV_CH "\xf7\xff\xff\x40\xff\xff" "    HSV_CH 00-40"
+    //                               EFFECT_HSV_AV "\x00\xff\xff\x40\xff\xff" "    HSV_AV 00-40"
+    //                               EFFECT_HSV_AH "\x00\xff\xff\xff\xff\xff" 
+  message.SetTextColrOptions(COLR_RGB | COLR_GRAD, 0xd2, 0x01, 0x01, 0xff, 0x5c, 0x00);
   message.UpdateText();
 }
 
