@@ -23,23 +23,35 @@ const char* ssid = "Simon";
 const char* password = "04190711";
 
 const char* ntpServer = "pool.ntp.org";
-const long  gmtOffset_sec = -21600;
-const int   daylightOffset_sec = 3600;
+const long  gmtOffset_sec = -25200;
+const int   daylightOffset_sec = 0;
 
 // create our matrix based on matrix definition
 cLEDMatrix<MATRIX_WIDTH, -MATRIX_HEIGHT, MATRIX_TYPE> leds;
 cLEDText message;
 
-const unsigned char TxtDemo[] = {"12:00"};
+// void printLocalTime()
+// {
+//   struct tm timeinfo;
+//   if(!getLocalTime(&timeinfo)){
+//     Serial.println("Failed to obtain time");
+//     return;
+//   }
+//   Serial.println(&timeinfo, "%H:%M");
+// }
 
-void printLocalTime()
-{
+void displayTime() {
   struct tm timeinfo;
+
   if(!getLocalTime(&timeinfo)){
     Serial.println("Failed to obtain time");
     return;
   }
-  Serial.println(&timeinfo, "%H:%M");
+
+  char text[8];
+  sprintf(text, "%d:%d", timeinfo.tm_hour, timeinfo.tm_min);
+  message.SetText((unsigned char *)text, sizeof(text) - 1);
+  message.UpdateText();
 }
 
 void setup() {
@@ -55,7 +67,6 @@ void setup() {
   Serial.println("Connected to wifi.");
 
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-  printLocalTime();
 
   // initial FastLED by using CRGB led source from our matrix class
   FastLED.addLeds<CHIPSET, DATA_PIN, COLOR_ORDER>(leds[0], leds.Size()).setCorrection(TypicalSMD5050);
@@ -63,23 +74,15 @@ void setup() {
   FastLED.clear(true);
   message.Init(&leds, 24, 8, 12, 0);
   message.SetFont(MFFontData);
-  message.SetText((unsigned char *)TxtDemo, sizeof(TxtDemo) - 1);
+  unsigned char text[] = {"00:00"};
+  message.SetText((unsigned char *)text, sizeof(text) - 1);
   message.SetTextColrOptions(COLR_RGB | COLR_SINGLE, 0xff, 0x00, 0xff);
   message.UpdateText();
 }
 
 void loop() {
-  EVERY_N_SECONDS(1) {
-    //canvas.fillScreen(CRGB::Red);
-    // leds.DrawFilledRectangle(0, 0, 7, 7, CRGB::DarkCyan);
-    // leds.DrawFilledRectangle(8, 0, 15, 7, CRGB::Orange);
-    // leds.DrawFilledRectangle(16, 0, 23, 7, CRGB::DarkCyan);
-    // leds.DrawFilledRectangle(24, 0, 31, 7, CRGB::Orange);
+  EVERY_N_SECONDS(0.5) {
+    displayTime();
     FastLED.show();
   }
-  // if (message.UpdateText() == -1)
-  //   message.SetText((unsigned char *)TxtDemo, sizeof(TxtDemo) - 1);
-  // else
-    FastLED.show();
-  delay(50);
 }
