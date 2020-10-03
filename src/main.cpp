@@ -54,6 +54,40 @@ void displayTime() {
   message.UpdateText();
 }
 
+void displayDaysOfWeek() {
+  struct tm timeinfo;
+
+  if(!getLocalTime(&timeinfo)){
+    Serial.println("Failed to obtain time");
+    return;
+  }
+
+  CRGB activeColor = CRGB::White;
+  CRGB inactiveColor = 0x040404;
+
+  // Sunday Line
+  CRGB sundayColor = timeinfo.tm_wday == 0 ? activeColor : inactiveColor;
+  leds.DrawLine(11, 0, 12, 0, sundayColor);
+  // Monday Line
+  CRGB mondayColor = timeinfo.tm_wday == 1 ? activeColor : inactiveColor;
+  leds.DrawLine(14, 0, 15, 0, mondayColor);
+  // Tuesday Line
+  CRGB tuesdayColor = timeinfo.tm_wday == 2 ? activeColor : inactiveColor;
+  leds.DrawLine(17, 0, 18, 0, tuesdayColor);
+  // Wednesday Line
+  CRGB wednesdayColor = timeinfo.tm_wday == 3 ? activeColor : inactiveColor;
+  leds.DrawLine(20, 0, 21, 0, wednesdayColor);
+  // Thursday Line
+  CRGB thursdayColor = timeinfo.tm_wday == 4 ? activeColor : inactiveColor;
+  leds.DrawLine(23, 0, 24, 0, thursdayColor);
+  // Friday Line
+  CRGB fridayColor = timeinfo.tm_wday == 5 ? activeColor : inactiveColor;
+  leds.DrawLine(26, 0, 27, 0, fridayColor);
+  // Saturday Line
+  CRGB saturdayColor = timeinfo.tm_wday == 6 ? activeColor : inactiveColor;
+  leds.DrawLine(29, 0, 30, 0, saturdayColor);
+}
+
 void setup() {
   Serial.begin(115200);
   WiFi.begin(ssid, password);
@@ -72,7 +106,7 @@ void setup() {
   FastLED.addLeds<CHIPSET, DATA_PIN, COLOR_ORDER>(leds[0], leds.Size()).setCorrection(TypicalSMD5050);
   FastLED.setBrightness(100);
   FastLED.clear(true);
-  message.Init(&leds, 24, 8, 12, 0);
+  message.Init(&leds, 24, 5, 12, 3);
   message.SetFont(MFFontData);
   message.SetTextColrOptions(COLR_RGB | COLR_GRAD, 0xd2, 0x01, 0x01, 0xff, 0x5c, 0x00);
 }
@@ -80,6 +114,7 @@ void setup() {
 void loop() {
   EVERY_N_SECONDS(0.5) {
     displayTime();
+    displayDaysOfWeek();
     FastLED.show();
   }
 
