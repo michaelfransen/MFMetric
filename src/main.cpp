@@ -2,9 +2,7 @@
 #include <FastLED.h>
 #include <LEDMatrix.h>
 #include <LEDText.h>
-#include <FontRobotron.h>
 #include <WiFi.h>
-#include <HTTPClient.h>
 #include "microapps/ClockApp.h"
 
 // Change the next defines to match your matrix type and size

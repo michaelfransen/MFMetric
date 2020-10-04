@@ -1,5 +1,5 @@
 #include "ClockApp.h"
-#include <FontRobotron.h>
+#include <MFFont.h>
 
 using namespace std;
 
@@ -19,6 +19,10 @@ void ClockApp::displayTime() {
   strftime(text, sizeof(text), "%I:%M", &timeinfo);
   message.SetText((unsigned char *)text, sizeof(text) - 1);
   message.UpdateText();
+}
+
+void ClockApp::displayDate() {
+    
 }
 
 void ClockApp::displayDaysOfWeek() {
