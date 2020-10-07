@@ -39,7 +39,7 @@ void setup() {
 
   // initial FastLED by using CRGB led source from our matrix class
   FastLED.addLeds<CHIPSET, DATA_PIN, COLOR_ORDER>(leds[0], leds.Size()).setCorrection(TypicalSMD5050);
-  FastLED.setBrightness(100);
+  FastLED.setBrightness(80);
   FastLED.clear(true);
   clockApp.setup();
 }
