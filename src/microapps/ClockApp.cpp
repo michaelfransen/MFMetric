@@ -7,33 +7,16 @@ const char *ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = -25200;
 const int daylightOffset_sec = 0;
 
-void ClockApp::displayTime()
+void ClockApp::displayTime(tm timeinfo)
 {
-  struct tm timeinfo;
-
-  if (!getLocalTime(&timeinfo))
-  {
-    Serial.println("Failed to obtain time");
-    return;
-  }
-
   char text[8];
   strftime(text, sizeof(text), "%I:%M", &timeinfo);
   message.SetText((unsigned char *)text, sizeof(text) - 1);
   message.UpdateText();
 }
 
-void ClockApp::displayDate()
+void ClockApp::displayDate(tm timeinfo)
 {
-
-  struct tm timeinfo;
-
-  if (!getLocalTime(&timeinfo))
-  {
-    Serial.println("Failed to obtain time");
-    return;
-  }
-
   CRGB first[] = {
       CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red,
       CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red,
@@ -457,16 +440,8 @@ void ClockApp::displayDate()
   }
 }
 
-void ClockApp::displayDaysOfWeek()
+void ClockApp::displayDaysOfWeek(tm timeinfo)
 {
-  struct tm timeinfo;
-
-  if (!getLocalTime(&timeinfo))
-  {
-    Serial.println("Failed to obtain time");
-    return;
-  }
-
   CRGB activeColor = CRGB::White;
   CRGB inactiveColor = 0x0a0a0a;
 
@@ -493,6 +468,20 @@ void ClockApp::displayDaysOfWeek()
   m_leds->DrawLine(29, 0, 30, 0, saturdayColor);
 }
 
+void ClockApp::updateDisplay() {
+  struct tm timeinfo;
+
+  if (!getLocalTime(&timeinfo))
+  {
+    Serial.println("Failed to obtain time");
+    return;
+  }
+
+  displayDaysOfWeek(timeinfo);
+  displayDate(timeinfo);
+  displayTime(timeinfo);
+}
+
 ClockApp::ClockApp(cLEDMatrixBase *leds)
 {
   m_leds = leds;
@@ -504,16 +493,22 @@ void ClockApp::setup()
   message.Init(m_leds, 24, 5, 12, 3);
   message.SetFont(MFFontData);
   message.SetTextColrOptions(COLR_RGB, 0xff, 0xff, 0xff);
-  displayDaysOfWeek();
-  displayDate();
+  updateDisplay();
 }
 
 void ClockApp::loop()
 {
   EVERY_N_SECONDS(0.5)
   {
-    displayTime();
-    displayDaysOfWeek();
+    struct tm timeinfo;
+
+    if (!getLocalTime(&timeinfo))
+    {
+      Serial.println("Failed to obtain time");
+      return;
+    }
+
+    updateDisplay();
     FastLED.show();
   }
 }

@@ -11,7 +11,8 @@ class ClockApp {
     private:
         cLEDMatrixBase *m_leds;
         cLEDText message;
-        void displayDaysOfWeek();
-        void displayTime();
-        void displayDate();
+        void displayDaysOfWeek(tm timeinfo);
+        void displayTime(tm timeinfo);
+        void displayDate(tm timeinfo);
+        void updateDisplay();
 };
