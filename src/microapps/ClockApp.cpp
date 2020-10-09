@@ -356,7 +356,7 @@ void ClockApp::displayDate(tm timeinfo)
       memcpy(date, eigth, sizeof(date));
       break;
     case 9:
-      memcpy(date, ninth, sizeof(date));
+      memcpy(date, eigth, sizeof(date));
       break;
     case 10:
       memcpy(date, tenth, sizeof(date));
