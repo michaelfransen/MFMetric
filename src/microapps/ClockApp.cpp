@@ -90,21 +90,21 @@ void ClockApp::displayDate(tm timeinfo)
   CRGB eigth[] = {
       CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red,
       CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red,
-      CRGB::White, CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White,
-      CRGB::White, CRGB::White, CRGB::White, CRGB::Black, CRGB::White, CRGB::Black, CRGB::White, CRGB::White,
-      CRGB::White, CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White,
-      CRGB::White, CRGB::White, CRGB::White, CRGB::Black, CRGB::White, CRGB::Black, CRGB::White, CRGB::White,
-      CRGB::White, CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White,
+      CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White, CRGB::White,
+      CRGB::White, CRGB::White, CRGB::Black, CRGB::White, CRGB::Black, CRGB::White, CRGB::White, CRGB::White,
+      CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White, CRGB::White,
+      CRGB::White, CRGB::White, CRGB::Black, CRGB::White, CRGB::Black, CRGB::White, CRGB::White, CRGB::White,
+      CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White, CRGB::White,
       CRGB::White, CRGB::White, CRGB::White, CRGB::White, CRGB::White, CRGB::White, CRGB::White, CRGB::White};
 
   CRGB ninth[] = {
       CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red,
       CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red, CRGB::Red,
-      CRGB::White, CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White,
-      CRGB::White, CRGB::White, CRGB::White, CRGB::Black, CRGB::White, CRGB::Black, CRGB::White, CRGB::White,
-      CRGB::White, CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White,
-      CRGB::White, CRGB::White, CRGB::White, CRGB::White, CRGB::White, CRGB::Black, CRGB::White, CRGB::White,
-      CRGB::White, CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White,
+      CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White, CRGB::White,
+      CRGB::White, CRGB::White, CRGB::Black, CRGB::White, CRGB::Black, CRGB::White, CRGB::White, CRGB::White,
+      CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White, CRGB::White,
+      CRGB::White, CRGB::White, CRGB::White, CRGB::White, CRGB::Black, CRGB::White, CRGB::White, CRGB::White,
+      CRGB::White, CRGB::White, CRGB::Black, CRGB::Black, CRGB::Black, CRGB::White, CRGB::White, CRGB::White,
       CRGB::White, CRGB::White, CRGB::White, CRGB::White, CRGB::White, CRGB::White, CRGB::White, CRGB::White};
 
   CRGB tenth[] = {
