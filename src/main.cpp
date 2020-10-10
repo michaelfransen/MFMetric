@@ -1,9 +1,13 @@
+#define _TASK_SLEEP_ON_IDLE_RUN // Enable 1 ms SLEEP_IDLE powerdowns between tasks if no callback methods were invoked during the pass
+#define _TASK_STATUS_REQUEST 
+#include <TaskScheduler.h>
+#include "ClockApp.h"
+#include "WeatherApp.h"
 #include <Arduino.h>
 #include <FastLED.h>
 #include <LEDMatrix.h>
 #include <LEDText.h>
 #include <WiFi.h>
-#include "microapps/ClockApp.h"
 #include <ESPmDNS.h>
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
@@ -26,7 +30,9 @@ const char* password = "04190711";
 
 // create our matrix based on matrix definition
 cLEDMatrix<MATRIX_WIDTH, -MATRIX_HEIGHT, MATRIX_TYPE> leds;
+Scheduler taskManager;
 ClockApp clockApp(&leds);
+WeatherApp weatherApp(&leds);
 
 void setup() {
   Serial.begin(115200);
