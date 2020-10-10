@@ -1,8 +1,3 @@
-#define _TASK_SLEEP_ON_IDLE_RUN // Enable 1 ms SLEEP_IDLE powerdowns between tasks if no callback methods were invoked during the pass
-#define _TASK_STATUS_REQUEST 
-#include <TaskScheduler.h>
-#include "ClockApp.h"
-#include "WeatherApp.h"
 #include <Arduino.h>
 #include <FastLED.h>
 #include <LEDMatrix.h>
@@ -11,6 +6,9 @@
 #include <ESPmDNS.h>
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
+#include "taskmanager/header.hpp"
+#include "ClockApp.h"
+#include "WeatherApp.h"
 
 // Change the next defines to match your matrix type and size
 #define DATA_PIN            27
@@ -85,10 +83,13 @@ void setup() {
   FastLED.setBrightness(80);
   FastLED.clear(true);
   clockApp.setup();
+  weatherApp.setup();
+  taskManager.startNow();
 }
 
 void loop() {
   ArduinoOTA.handle();
+  taskManager.execute();
   clockApp.loop();
   delay(20);
 }
